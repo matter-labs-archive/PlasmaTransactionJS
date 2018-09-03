@@ -206,6 +206,9 @@ Block.prototype.getProofForTransactionSpendingUTXO = function (signedTX, forUTXO
 }
 
 Block.prototype.getProofForTransactionByNumber = function (transactionNumber) {
+    if (transactionNumber >= this.transactions.length) {
+        return null
+    }
     const tx = this.transactions[transactionNumber]; 
     const proof = Buffer.concat(this.merkleTree.getProof(transactionNumber, true));
     return {tx, proof};    
