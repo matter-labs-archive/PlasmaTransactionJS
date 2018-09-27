@@ -170,7 +170,7 @@ const {blockNumberLength,
     validate (stringError) {
         const errors = []
         if (!this.transaction.validate()) {
-          error.push("Malformed transaction")
+          errors.push("Malformed transaction")
         }
         if (!this.verifySignature()) {
           errors.push('Invalid Signature')
