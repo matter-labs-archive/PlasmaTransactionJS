@@ -215,5 +215,5 @@ const EmptyTransactionBuffer = (new PlasmaTransactionWithSignature({
   s: Buffer.alloc(signatureSlength)
 })).rlpEncode();
 
-console.log("Empty transaction hex = " + ethUtil.bufferToHex(EmptyTransactionBuffer));
+// console.log("Empty transaction hex = " + ethUtil.bufferToHex(EmptyTransactionBuffer));
 module.exports = {PlasmaTransactionWithSignature, EmptyTransactionBuffer}
