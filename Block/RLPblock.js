@@ -185,26 +185,25 @@ clearRaw(includeSignature) {
 
 }
 
-// TODO: fix txNoNumber unassigned variable
-// Block.prototype.getProofForTransactionSpendingUTXO = function (signedTX, forUTXOnumber) {
-//     let counter = 0;
-//     for (const tx of this.transactions) {
-//         const txNoNumberBuffer = tx.serialize();
-//         if (txNoNumberBuffer.equals(signedTX)) {
-//             const proof = Buffer.concat(this.merkleTree.getProof(counter, true));
-//             for (let i = 0; i < txNoNumber.transaction.inputs.length; i++) {
-//                 const input = txNoNumber.transaction.inputs[i]
-//                 if (input.getUTXOnumber().cmp(forUTXOnumber) === 0) {
-//                     const inputNumber = new BN(i);
-//                     return {tx, proof, inputNumber}
-//                 }
-//                 return null
-//             }
-//         }
-//         counter++;
-//     }
-//     return null
-// }
+Block.prototype.getProofForTransactionSpendingUTXO = function (signedTX, forUTXOnumber) {
+    let counter = 0;
+    for (const tx of this.transactions) {
+        const txNoNumberBuffer = tx.serialize();
+        if (txNoNumberBuffer.equals(signedTX)) {
+            const proof = Buffer.concat(this.merkleTree.getProof(counter, true));
+            for (let i = 0; i < tx.transaction.inputs.length; i++) {
+                const input = tx.transaction.inputs[i];
+                if (input.getUTXOnumber().cmp(forUTXOnumber) === 0) {
+                    const inputNumber = new BN(i);
+                    return {tx, proof, inputNumber}
+                }
+                return null
+            }
+        }
+        counter++;
+    }
+    return null
+}
 
 Block.prototype.getProofForTransactionByNumber = function (transactionNumber) {
     if (transactionNumber >= this.transactions.length) {
