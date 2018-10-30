@@ -310,4 +310,6 @@ var MerkleTools = function (treeOptions) {
   }
 }
 
-module.exports = MerkleTools
+export {
+  MerkleTools
+};

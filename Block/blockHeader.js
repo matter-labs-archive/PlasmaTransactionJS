@@ -1,11 +1,13 @@
-const {blockNumberLength,
+const {
+  blockNumberLength,
   txNumberLength,
   txTypeLength, 
   signatureVlength,
   signatureRlength,
   signatureSlength,
   merkleRootLength,
-  previousHashLength} = require('../dataStructureLengths');
+  previousHashLength
+} = require('../dataStructureLengths');
 
 const stripHexPrefix = require('strip-hex-prefix');
 const ethUtil = require('ethereumjs-util')
@@ -64,7 +66,6 @@ class BlockHeader {
     }]
 
  defineProperties(this, fields, data)
-
     /**
      * @property {Buffer} from (read only) sender address of this transaction, mathematically derived from other parameters.
      * @name from
@@ -82,6 +83,7 @@ class BlockHeader {
       get: (() => Buffer.concat(this.raw).length) 
     })
   }
+  
   /**
    * Computes a sha3-256 hash of the serialized tx
    * @param {Boolean} [includeSignature=true] whether or not to inculde the signature
@@ -227,5 +229,8 @@ const dummy = new BlockHeader();
 const BlockHeaderLength = dummy.length;
 const BlockHeaderNumItems = dummy.raw.length;
 
-module.exports = {BlockHeader, BlockHeaderLength, BlockHeaderNumItems}
-
+export {
+  BlockHeader,
+  BlockHeaderLength,
+  BlockHeaderNumItems
+};

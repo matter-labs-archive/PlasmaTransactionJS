@@ -1,14 +1,16 @@
-const {blockNumberLength,
-    txNumberLength,
-    txTypeLength, 
-    signatureVlength,
-    signatureRlength,
-    signatureSlength,
-    merkleRootLength,
-    previousHashLength,
-    txOutputNumberLength,
-    txAmountLength,
-    txToAddressLength} = require('../dataStructureLengths');
+const {
+  blockNumberLength,
+  txNumberLength,
+  txTypeLength, 
+  signatureVlength,
+  signatureRlength,
+  signatureSlength,
+  merkleRootLength,
+  previousHashLength,
+  txOutputNumberLength,
+  txAmountLength,
+  txToAddressLength
+} = require('../dataStructureLengths');
 
 const ethUtil = require('ethereumjs-util')
 const BN = ethUtil.BN
@@ -21,40 +23,40 @@ class TransactionOutput {
     data = data || {}
     // Define Properties
     const fields = [
-        // {
-        // name: 'assetID',
-        // allowZero: true,
-        // alias: 'asset',
-        // length: 4,
-        // allowLess: false,
-        // default: Buffer.alloc(4)
-        // }, 
-        {
-        name: 'outputNumberInTransaction',
-        allowZero: true,
-        alias: 'outputNum',
-        length: txOutputNumberLength,
-        allowLess: false,
-        default: Buffer.alloc(txOutputNumberLength)
-        },
-        {
-        name: 'to',
-        allowZero: true,
-        alias: 'recipient',
-        length: txToAddressLength,
-        allowLess: false,
-        default: Buffer.alloc(txToAddressLength)
-        }, 
-        {
-        name: 'amountBuffer',
-        allowZero: true,
-        alias: 'valueBuffer',
-        length: txAmountLength,
-        allowLess: false,
-        default: Buffer.alloc(txAmountLength)
-        }]
+      // {
+      // name: 'assetID',
+      // allowZero: true,
+      // alias: 'asset',
+      // length: 4,
+      // allowLess: false,
+      // default: Buffer.alloc(4)
+      // }, 
+      {
+      name: 'outputNumberInTransaction',
+      allowZero: true,
+      alias: 'outputNum',
+      length: txOutputNumberLength,
+      allowLess: false,
+      default: Buffer.alloc(txOutputNumberLength)
+      },
+      {
+      name: 'to',
+      allowZero: true,
+      alias: 'recipient',
+      length: txToAddressLength,
+      allowLess: false,
+      default: Buffer.alloc(txToAddressLength)
+      }, 
+      {
+      name: 'amountBuffer',
+      allowZero: true,
+      alias: 'valueBuffer',
+      length: txAmountLength,
+      allowLess: false,
+      default: Buffer.alloc(txAmountLength)
+    }]
 
-        defineProperties(this, fields, data)
+    defineProperties(this, fields, data)
 
     /**
      * @property {BigNumber} from (read only) amount of this transaction, mathematically derived from other parameters.
@@ -62,47 +64,48 @@ class TransactionOutput {
      * @memberof Transaction
      */
     Object.defineProperty(this, 'value', {
-        enumerable: true,
-        configurable: true,
-        get: (() => new BN(this.valueBuffer)) 
+      enumerable: true,
+      configurable: true,
+      get: (() => new BN(this.valueBuffer)) 
     })
 
     Object.defineProperty(this, 'length', {
-        enumerable: true,
-        configurable: true,
-        get: (() =>  Buffer.concat(this.raw).length) 
+      enumerable: true,
+      configurable: true,
+      get: (() =>  Buffer.concat(this.raw).length) 
     })
-    }
-    getKey() {
-        if(this._key) {
-            return this._key;
-        }
-        this._key = Buffer.concat(this.raw.slice(0,2)).toString('hex')
-        return this._key;
-    }
+  }
 
-    toFullJSON(labeled) {
-        if (labeled) {
-            let to = ethUtil.bufferToHex(this.to)
-            to = ethUtil.toChecksumAddress(to)
-            const outputNumberInTransaction = ethUtil.bufferToInt(this.outputNumberInTransaction)
-            const value = this.value.toString(10);
-            const obj = {
-              to,
-              outputNumberInTransaction,
-              value
-            }
-            return obj;
-        } else {
-          return ethUtil.baToJSON(this.raw)
-        }
+  getKey() {
+    if(this._key) {
+      return this._key;
+    }
+    this._key = Buffer.concat(this.raw.slice(0,2)).toString('hex')
+    return this._key;
+  }
+
+  toFullJSON(labeled) {
+    if (labeled) {
+      let to = ethUtil.bufferToHex(this.to)
+      to = ethUtil.toChecksumAddress(to)
+      const outputNumberInTransaction = ethUtil.bufferToInt(this.outputNumberInTransaction)
+      const value = this.value.toString(10);
+      const obj = {
+        to,
+        outputNumberInTransaction,
+        value
       }
+      return obj;
+    } else {
+      return ethUtil.baToJSON(this.raw)
+    }
+  }
 }
-
-
 
 const dummy = new TransactionOutput();
 const TransactionOutputLength = dummy.rlpEncode().length;
 
-module.exports = function(){
-    return {TransactionOutput, TransactionOutputLength}}()
+export {
+  TransactionOutput,
+  TransactionOutputLength
+};
