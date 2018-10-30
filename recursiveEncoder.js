@@ -1,6 +1,6 @@
-const ethUtil = require('ethereumjs-util')
+const ethUtil = require('ethereumjs-util');
 const assert = require('assert');
-const isBuffer = require('is-buffer')
+const isBuffer = require('is-buffer');
 
 exports.defineProperties = function (self, fields, data_) {
   self._raw = []

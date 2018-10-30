@@ -1,3 +1,7 @@
+import ethUtil from 'ethereumjs-util';
+const BN = ethUtil.BN;
+const defineProperties = require('../recursiveEncoder').defineProperties;
+
 const {
   blockNumberLength,
   txNumberLength,
@@ -11,9 +15,6 @@ const {
   txAmountLength
 } = require('../dataStructureLengths');
   
-const ethUtil = require('ethereumjs-util')
-const BN = ethUtil.BN
-const defineProperties = require('../recursiveEncoder').defineProperties;
 // secp256k1n/2
 const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16)
 

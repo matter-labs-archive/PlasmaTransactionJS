@@ -1,3 +1,8 @@
+import stripHexPrefix from 'strip-hex-prefix';
+import ethUtil from 'ethereumjs-util';
+const  BN = ethUtil.BN;
+const defineProperties = require('../serialize').defineProperties;
+
 const {
   blockNumberLength,
   txNumberLength,
@@ -9,10 +14,6 @@ const {
   previousHashLength
 } = require('../dataStructureLengths');
 
-const stripHexPrefix = require('strip-hex-prefix');
-const ethUtil = require('ethereumjs-util')
-const BN = ethUtil.BN
-const defineProperties = require('../serialize').defineProperties;
 // secp256k1n/2
 const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16)
 

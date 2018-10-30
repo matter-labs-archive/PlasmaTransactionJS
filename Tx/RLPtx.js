@@ -1,3 +1,10 @@
+import stripHexPrefix from 'strip-hex-prefix';
+import { TransactionInput, TransactionInputLength } from "./RLPinput";
+import { TransactionOutput, TransactionOutputLength } from "./RLPoutput";
+import ethUtil from 'ethereumjs-util';
+const BN = ethUtil.BN;
+const defineProperties = require('../recursiveEncoder').defineProperties;
+
 const {
   blockNumberLength,
   txNumberLength,
@@ -12,14 +19,9 @@ const {
   txToAddressLength
 } = require('../dataStructureLengths');
   
-const ethUtil = require('ethereumjs-util')
-const BN = ethUtil.BN;
 const ZERO = new BN(0);
 const ZEROADDRESS = Buffer.alloc(txToAddressLength);
 const ZEROADDRESShex = ethUtil.bufferToHex(ZEROADDRESS);
-
-const defineProperties = require('../recursiveEncoder').defineProperties;
-const stripHexPrefix = require('strip-hex-prefix');
 
 const TxTypeNull = 0;
 const TxTypeSplit = 1;
@@ -28,9 +30,6 @@ const TxTypeFund = 4;
 
 // secp256k1n/2
 const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16)
-
-const {TransactionInput, TransactionInputLength} = require("./RLPinput");
-const {TransactionOutput, TransactionOutputLength} = require("./RLPoutput");
 
 class PlasmaTransaction {
   constructor (data) {

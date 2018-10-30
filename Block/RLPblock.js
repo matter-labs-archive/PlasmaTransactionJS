@@ -1,4 +1,13 @@
-const {blockNumberLength,
+import { MerkleTools } from '../merkle-tools';
+import { PlasmaTransactionWithSignature } from '../Tx/RLPtxWithSignature';
+import { BlockHeader, BlockHeaderLength, BlockHeaderNumItems } from './blockHeader';
+import { EmptyTransactionBuffer } from "../Tx/RLPtxWithSignature";
+import assert from 'assert';
+import ethUtil from 'ethereumjs-util';
+const BN = ethUtil.BN;
+
+const {
+  blockNumberLength,
   txNumberLength,
   txTypeLength, 
   signatureVlength,
@@ -7,14 +16,6 @@ const {blockNumberLength,
   merkleRootLength,
   previousHashLength
 } = require('../dataStructureLengths');
-
-const assert = require('assert');
-const ethUtil = require('ethereumjs-util');
-const BN = ethUtil.BN
-const {PlasmaTransactionWithSignature} = require('../Tx/RLPtxWithSignature');
-const MerkleTools = require('../merkle-tools');
-const {BlockHeader, BlockHeaderLength, BlockHeaderNumItems} = require('./blockHeader'); 
-const {EmptyTransactionBuffer} = require("../Tx/RLPtxWithSignature");
 
 // secp256k1n/2
 const N_DIV_2 = new BN('7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a0', 16);
