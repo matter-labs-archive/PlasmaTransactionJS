@@ -129,7 +129,7 @@ class PlasmaTransaction {
     const numInputs = this.inputs.length;
     const numOutputs = this.outputs.length
     if (txType === TxTypeMerge) {
-        if (numInputs < 2 || numInputs > NumInputsForType[TxTypeMerge] || numOutputs !== 1) {
+        if (numInputs < 1 || numInputs > NumInputsForType[TxTypeMerge] || numOutputs !== 1) { // later will be restricted to "NumInputs < 2"
             return false
         }
     } else if (txType === TxTypeSplit) {
