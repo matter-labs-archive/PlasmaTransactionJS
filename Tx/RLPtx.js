@@ -1,4 +1,3 @@
-import stripHexPrefix from 'strip-hex-prefix';
 import { TransactionInput, TransactionInputLength } from "./RLPinput";
 import { TransactionOutput, TransactionOutputLength } from "./RLPoutput";
 import ethUtil from 'ethereumjs-util';
